@@ -1,4 +1,23 @@
-$cor-padrao:	#c69;
+$cor-padrao: #c69;
+$cor-auxiliar: #069;
+$raio: 0.3em;
+
+@mixin borda-arredondada($raio) {
+  -webkit-border-radius: $raio;
+  border-radius: $raio;
+}
+
+@mixin sombra-padrao {
+  -webkit-box-shadow: 50px 20px 60.65px 10.35px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+
+@mixin image-replacement {
+  text-indent: -9999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
 
 /** Geral **/
 body {
@@ -30,7 +49,7 @@ h2 {
 /** Header **/
 header {
   border-top: 5px solid $cor-padrao;
-  background: rgba(102, 153, 153, 0.8);
+  background: rgba($cor-auxiliar, 0.8);
   height: 90px;
   width: 100%;
   position: absolute;
@@ -40,31 +59,56 @@ header .container {
   position: relative;
 }
 
-.menu-opcoes {
+.menu-principal {
   position: absolute;
   right: 0;
   top: -.5em;
   font-size: 1.2em;
   font-weight: lighter;
+
+  ul {
+    padding-left: 0;
+  }
+
+  li {
+    display: inline-block;
+    width: 5em;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-.menu-opcoes ul {
-  padding-left: 0;
+@media (max-width: 980px) {
+  .menu-principal {
+    position: static;
+    display: block;
+    text-align: center;
+
+    li {
+      margin: .4em;
+    }
+
+    .post-destaque,
+    .posts-antigos,
+    form {
+      width: auto;
+    }
+
+  }
+
+  .menu-opcoes .destaque {
+    font-size: 14px;
+    height: 250px;
+  }
 }
 
-.menu-opcoes li {
-  display: inline-block;
-  width: 5em;
-}
-
-.menu-opcoes a {
-  color: white;
-  text-decoration: none;
-}
-
-.menu-opcoes a:hover {
-  text-decoration: underline;
-}
 
 /** Destaque **/
 .destaque {
@@ -97,9 +141,8 @@ header .container {
   border: 0;
   padding: .6em;
   font-size: 1.2em;
-  -webkit-border-radius: 0.3em;
-  border-radius: 0.3em;
-  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+  @include borda-arredondada(20px);
+  @include sombra-padrao;
   font-weight: bold;
 }
 
@@ -136,9 +179,7 @@ header .container {
   display: inline-block;
   width: 50px;
   height: 60px;
-  text-indent: -9999px;
-  overflow: hidden;
-  background-repeat: no-repeat;
+  @include image-replacement;
   background-position: center;
   margin: 1em 1.5em 0 0;
 }
@@ -161,7 +202,7 @@ header .container {
 
 /** Planos **/
 .planos {
-  background: #699;
+  background: $cor-auxiliar;
 }
 
 .planos h2 {
@@ -198,22 +239,23 @@ header .container {
 
 .itens-plano {
   padding-left: 1.2em;
-}
 
-.itens-plano li {
-  font-size: 1em;
-  list-style: none;
-  border-bottom: 1px solid #acacac;
-  padding: .5em;
-  width: 14.8em;
-}
+  li {
+    font-size: 1em;
+    list-style: none;
+    border-bottom: 1px solid #acacac;
+    padding: .5em;
+    width: 14.8em;
 
-.itens-plano li:last-child {
-  border: 0;
-}
+    &:last-child {
+      border: 0;
+    }
+  }
 
-.itens-plano span {
-  float: right;
+  span {
+    float: right;
+  }
+
 }
 
 .plano button {
@@ -223,13 +265,13 @@ header .container {
   width: 210px;
   height: 38px;
   font-size: 1.2em;
-  -webkit-border-radius: 0.3em;
-  border-radius: 0.3em;
-  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+  @include borda-arredondada(0.3em);
+  @include sombra-padrao;
   margin-left: 2em;
 }
 
-.icone-check, .icone-x {
+.icone-check,
+.icone-x {
   background: url(../imagens/sprite.png) no-repeat;
   width: 18px;
   height: 18px;
@@ -308,8 +350,7 @@ textarea {
   width: 100%;
   margin-bottom: .8em;
   padding: 4px 8px;
-  -webkit-border-radius: 0.3em;
-  border-radius: 0.3em;
+  @include borda-arredondada(0.3em);
   border: 2px solid #ccc;
 }
 
@@ -321,10 +362,11 @@ textarea {
   width: 210px;
   height: 38px;
   font-size: 1.2em;
-  -webkit-border-radius: 0.3em;
-  border-radius: 0.3em;
-  box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+  @include borda-arredondada(0.3em);
+  @include sombra-padrao;
 }
+
+
 
 /** Footer **/
 footer {
@@ -346,7 +388,7 @@ footer::after {
 
 footer::before {
   content: "";
-  background: #699;
+  background: $cor-auxiliar;
   top: 0;
   left: 0;
   bottom: 0;
@@ -403,9 +445,7 @@ footer a {
   display: block;
   width: 55px;
   height: 55px;
-  text-indent: -9999px;
-  overflow: hidden;
-  background-repeat: no-repeat;
+  @include image-replacement;
   margin-left: 1em;
 }
 
